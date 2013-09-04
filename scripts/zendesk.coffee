@@ -20,9 +20,9 @@
 sys = require 'sys' # Used for debugging
 
 queries =
-  unsolved: "search.json?query=\"status<solved+type:ticket""
-  open: "search.json?query=\"status:open+type:ticket""
-  new: "search.json?query=\"status:new+type:ticket""
+  unsolved: "search.json?query=\"status<solved%20type:ticket""
+  open: "search.json?query=\"status:open%20type:ticket""
+  new: "search.json?query=\"status:new%20type:ticket""
   tickets: "tickets"
   users: "users"
 
