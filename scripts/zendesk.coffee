@@ -87,27 +87,27 @@ module.exports = (robot) ->
   robot.respond /list (all )?tickets$/i, (msg) ->
     zendesk_request msg, queries.unsolved, (results) ->
       for result in results.results
-        msg.send "Ticket #{result.id} is #{result.status}: http://support.puppetlabs.com/#{result.id}"
+        msg.send "Ticket #{result.id} is #{result.status}: https://support.puppetlabs.com/tickets/#{result.id}"
 
   robot.respond /list new tickets$/i, (msg) ->
     zendesk_request msg, queries.new, (results) ->
       for result in results.results
-        msg.send "Ticket #{result.id} is #{result.status}: http://support.puppetlabs.com/#{result.id}"
+        msg.send "Ticket #{result.id} is #{result.status}: https://support.puppetlabs.com/tickets/#{result.id}"
   
   robot.respond /list pending tickets$/i, (msg) ->
     zendesk_request msg, queries.pending, (results) ->
       for result in results.results
-        msg.send "Ticket #{result.id} is #{result.status}: http://support.puppetlabs.com/#{result.id}"
+        msg.send "Ticket #{result.id} is #{result.status}: https://support.puppetlabs.com/tickets/#{result.id}"
 
   robot.respond /list escalated tickets$/i, (msg) ->
     zendesk_request msg, queries.escalated, (results) ->
       for result in results.results
-        msg.send "Ticket #{result.id} is escalated and #{result.status}: http://support.puppetlabs.com/#{result.id}"
+        msg.send "Ticket #{result.id} is escalated and #{result.status}: https://support.puppetlabs.com/tickets/#{result.id}"
 
   robot.respond /list open tickets$/i, (msg) ->
     zendesk_request msg, queries.open, (results) ->
       for result in results.results
-        msg.send "Ticket #{result.id} is #{result.status}: http://support.puppetlabs.com/#{result.id}"
+        msg.send "Ticket #{result.id} is #{result.status}: https://support.puppetlabs.com/tickets/#{result.id}"
 
   robot.respond /ticket ([\d]+)$/i, (msg) ->
     ticket_id = msg.match[1]
@@ -115,7 +115,7 @@ module.exports = (robot) ->
       if result.error
         msg.send result.description
         return
-      message = "http://support.puppetlabs.com/#{result.ticket.id} ##{result.ticket.id} (#{result.ticket.status.toUpperCase()})"
+      message = "https://support.puppetlabs.com/tickets/#{result.ticket.id} ##{result.ticket.id} (#{result.ticket.status.toUpperCase()})"
       message += "\nUpdated: #{result.ticket.updated_at}"
       message += "\nAdded: #{result.ticket.created_at}"
       message += "\nDescription:\n-------\n#{result.ticket.description}\n--------"
