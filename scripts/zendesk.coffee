@@ -20,9 +20,10 @@
 sys = require 'sys' # Used for debugging
 
 queries =
-  unsolved: "search.json?query=\"status<solved type:ticket\""
-  open: "search.json?query=\"status:open type:ticket\""
-  new: "search.json?query=\"status:new type:ticket\""
+  unsolved: "search.json?query=status<solved+type:ticket"
+  open: "search.json?query=status:open+type:ticket"
+  new: "search.json?query=status:new+type:ticket"
+  escalated: "search.json?query=escalated:new+type:ticket"
   tickets: "tickets"
   users: "users"
 
@@ -62,8 +63,14 @@ module.exports = (robot) ->
       ticket_count = results.count
       msg.send "#{ticket_count} new tickets"
 
+  robot.respond /escalated tickets$/i, (msg) ->
+    zendesk_request msg, queries.new, (results) ->
+      ticket_count = results.count
+      msg.send "#{ticket_count} escalated tickets"
+
   robot.respond /open tickets$/i, (msg) ->
     zendesk_request msg, queries.open, (results) ->
+     # console.log results
       ticket_count = results.count
       msg.send "#{ticket_count} open tickets"
 
