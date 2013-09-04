@@ -2,7 +2,7 @@
 #   Queries Zendesk for information about support tickets
 #
 # Configuration:
-#   HUBOT_ZENDESK_USER
+#  remember HUBOT_ZENDESK_USER
 #   HUBOT_ZENDESK_PASSWORD
 #   HUBOT_ZENDESK_SUBDOMAIN
 #
