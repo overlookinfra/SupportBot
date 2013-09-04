@@ -23,8 +23,8 @@ queries =
   unsolved: "search.json?query=status<solved+type:ticket"
   open: "search.json?query=status:open+type:ticket"
   new: "search.json?query=status:new+type:ticket"
-  escalated: "search.json?query=escalated:new+type:ticket"
-  pending: "search.json?query=pending:new+type:ticket"
+  escalated: "search.json?query=status:escalated+type:ticket"
+  pending: "search.json?query=status:pending+type:ticket"
   tickets: "tickets"
   users: "users"
 
