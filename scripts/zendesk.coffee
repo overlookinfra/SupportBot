@@ -56,7 +56,7 @@ module.exports = (robot) ->
     zendesk_request msg, queries.unsolved, (results) ->
       ticket_count = results.count
      #  msg.send "#{ticket_count} unsolved tickets"
-      msg.send results
+      msg.send results[0]
 
   robot.respond /new tickets$/i, (msg) ->
     zendesk_request msg, queries.new, (results) ->
@@ -67,7 +67,7 @@ module.exports = (robot) ->
     zendesk_request msg, queries.open, (results) ->
       ticket_count = results.count
      #  msg.send "#{ticket_count} open tickets"
-      msg.send results
+      msg.send results[0]
 
   robot.respond /list (all )?tickets$/i, (msg) ->
     zendesk_request msg, queries.unsolved, (results) ->
