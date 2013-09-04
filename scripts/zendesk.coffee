@@ -24,6 +24,7 @@ queries =
   open: "search.json?query=status:open+type:ticket"
   new: "search.json?query=status:new+type:ticket"
   escalated: "search.json?query=escalated:new+type:ticket"
+  pending: "search.json?query=pending:new+type:ticket"
   tickets: "tickets"
   users: "users"
 
@@ -57,14 +58,19 @@ module.exports = (robot) ->
     zendesk_request msg, queries.unsolved, (results) ->
       ticket_count = results.count
       msg.send "#{ticket_count} unsolved tickets"
-
+  
+  robot.respond /pending tickets$/i, (msg) ->
+    zendesk_request msg, queries.pending, (results) ->
+      ticket_count = results.count
+      msg.send "#{ticket_count} unsolved tickets"
+  
   robot.respond /new tickets$/i, (msg) ->
     zendesk_request msg, queries.new, (results) ->
       ticket_count = results.count
       msg.send "#{ticket_count} new tickets"
 
   robot.respond /escalated tickets$/i, (msg) ->
-    zendesk_request msg, queries.new, (results) ->
+    zendesk_request msg, queries.escalated, (results) ->
       ticket_count = results.count
       msg.send "#{ticket_count} escalated tickets"
 
