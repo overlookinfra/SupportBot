@@ -54,17 +54,17 @@ module.exports = (robot) ->
 
   robot.respond /(all )?tickets$/i, (msg) ->
     zendesk_request msg, queries.unsolved, (results) ->
-      ticket_count = results.count
+      ticket_count = results[0].count
       msg.send "#{ticket_count} unsolved tickets"
 
   robot.respond /new tickets$/i, (msg) ->
     zendesk_request msg, queries.new, (results) ->
-      ticket_count = results.count
+      ticket_count = results[0].count
       msg.send "#{ticket_count} new tickets"
 
   robot.respond /open tickets$/i, (msg) ->
     zendesk_request msg, queries.open, (results) ->
-      ticket_count = results.count
+      ticket_count = results[0].count
       msg.send "#{ticket_count} open tickets"
 
   robot.respond /list (all )?tickets$/i, (msg) ->
