@@ -11,10 +11,14 @@
 #                   keyword is optional.
 #   new tickets - returns the count of all new tickets
 #   open tickets - returns the count of all open tickets
+#   escalated tickets - returns a count of tickets with escalated tag that are open or pending
+#   pending tickets - returns a count of tickets that are pending
 #   list (all) tickets - returns a list of all unsolved tickets. The 'all'
 #                   keyword is optional.
 #   list new tickets - returns a list of all new tickets
 #   list open tickets - returns a list of all open tickets
+#   list pending tickets - returns a list of pending tickets
+#   list escalated tickets - returns a list of escalated tickets
 #   ticket <ID> - returns informationa about the specified ticket
 
 sys = require 'sys' # Used for debugging
@@ -23,7 +27,7 @@ queries =
   unsolved: "search.json?query=status<solved+type:ticket"
   open: "search.json?query=status:open+type:ticket"
   new: "search.json?query=status:new+type:ticket"
-  escalated: "search.json?query=status:escalated+type:ticket"
+  escalated: "search.json?query=tags:escalated+status:open+status:pending+type:ticket"
   pending: "search.json?query=status:pending+type:ticket"
   tickets: "tickets"
   users: "users"
@@ -83,17 +87,27 @@ module.exports = (robot) ->
   robot.respond /list (all )?tickets$/i, (msg) ->
     zendesk_request msg, queries.unsolved, (results) ->
       for result in results.results
-        msg.send "#{result.id} is #{result.status}: #{result.subject}"
+        msg.send "Ticket #{result.id} is #{result.status}: http://support.puppetlabs.com/#{result.id}"
 
   robot.respond /list new tickets$/i, (msg) ->
     zendesk_request msg, queries.new, (results) ->
       for result in results.results
-        msg.send "#{result.id} is #{result.status}: #{result.subject}"
+        msg.send "Ticket #{result.id} is #{result.status}: http://support.puppetlabs.com/#{result.id}"
+  
+  robot.respond /list pending tickets$/i, (msg) ->
+    zendesk_request msg, queries.pending, (results) ->
+      for result in results.results
+        msg.send "Ticket #{result.id} is #{result.status}: http://support.puppetlabs.com/#{result.id}"
+
+  robot.respond /list escalated tickets$/i, (msg) ->
+    zendesk_request msg, queries.escalated, (results) ->
+      for result in results.results
+        msg.send "Ticket #{result.id} is escalated and #{result.status}: http://support.puppetlabs.com/#{result.id}"
 
   robot.respond /list open tickets$/i, (msg) ->
     zendesk_request msg, queries.open, (results) ->
       for result in results.results
-        msg.send "#{result.id} is #{result.status}: #{result.subject}"
+        msg.send "Ticket #{result.id} is #{result.status}: http://support.puppetlabs.com/#{result.id}"
 
   robot.respond /ticket ([\d]+)$/i, (msg) ->
     ticket_id = msg.match[1]
@@ -101,7 +115,7 @@ module.exports = (robot) ->
       if result.error
         msg.send result.description
         return
-      message = "#{result.ticket.subject} ##{result.ticket.id} (#{result.ticket.status.toUpperCase()})"
+      message = "http://support.puppetlabs.com/#{result.ticket.id} ##{result.ticket.id} (#{result.ticket.status.toUpperCase()})"
       message += "\nUpdated: #{result.ticket.updated_at}"
       message += "\nAdded: #{result.ticket.created_at}"
       message += "\nDescription:\n-------\n#{result.ticket.description}\n--------"
