@@ -2,14 +2,14 @@
 #   Queries Zendesk for information about support tickets
 #
 # Configuration:
-#  remember HUBOT_ZENDESK_USER
+#   HUBOT_ZENDESK_USER
 #   HUBOT_ZENDESK_PASSWORD
 #   HUBOT_ZENDESK_SUBDOMAIN
 #
 # Commands:
 #   (all) tickets - returns the total count of all unsolved tickets. The 'all'
 #                   keyword is optional.
-#   new tickets - returns the count of all new tickets
+#   new tickets - returns the count of all new (unassigned) tickets
 #   open tickets - returns the count of all open tickets
 #   escalated tickets - returns a count of tickets with escalated tag that are open or pending
 #   pending tickets - returns a count of tickets that are pending
@@ -19,7 +19,7 @@
 #   list open tickets - returns a list of all open tickets
 #   list pending tickets - returns a list of pending tickets
 #   list escalated tickets - returns a list of escalated tickets
-#   ticket <ID> - returns informationa about the specified ticket
+#   ticket <ID> - returns information about the specified ticket
 
 sys = require 'sys' # Used for debugging
 
