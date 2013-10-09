@@ -24,7 +24,9 @@
     "hubot-scripts": ">= 2.5.0 < 3.0.0",
     "hubot-hipchat": "~2.5.1-4",
     "wolfram": "0.2.2",
-    "libxmljs": ">= 0.8.1"
+    "libxmljs": ">= 0.8.1",
+    "soupselect": "0.2.0",
+    "jsdom": "0.2.14"
   },
   "engines": {
     "node": ">= 0.8.x",
