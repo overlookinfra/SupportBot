@@ -23,7 +23,3 @@ module.exports = (robot) ->
     tumblr.photos(PIZZA).random (post) ->
       msg.send post.photos[0].original_size.url
   )
-  robot.respond /pizza bomb(?: me)?( \d+)?$/i, (msg) ->
-    pizza = msg.match[1] || 5
-    tumblr.photos(PIZZA).random (post) ->
-    	msg.send(post.photos[0].original_size.url) for i in [1..pizzas]
