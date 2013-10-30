@@ -19,7 +19,7 @@ HALLOWEEN = "http://hallowsween.tumblr.com/"
 
 module.exports = (robot) ->
   func = if process.env.HUBOT_MORE_HALLOWEEN then 'hear' else 'respond'
-  robot[func](/hallowee+n+/i, (msg) ->
+  robot[func](/halloween/i, (msg) ->
     tumblr.photos(HALLOWEEN).random (post) ->
       msg.send post.photos[0].original_size.url
   )
