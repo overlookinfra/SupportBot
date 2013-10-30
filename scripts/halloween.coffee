@@ -15,7 +15,7 @@
 #   revhazroot
 
 tumblr = require 'tumblrbot'
-HALLOWEEN = "http://hallowsween.tumblr.com/"
+HALLOWEEN = "hallowsween.tumblr.com"
 
 module.exports = (robot) ->
   func = if process.env.HUBOT_MORE_HALLOWEEN then 'hear' else 'respond'
