@@ -1,5 +1,5 @@
 # Description:
-#   Messing with the JIRA REST API
+#  - Messing with the JIRA REST API
 #
 # Dependencies:
 #   None
