@@ -120,11 +120,3 @@ module.exports = (robot) ->
       message += "\nAdded: #{result.ticket.created_at}"
       message += "\nDescription:\n-------\n#{result.ticket.description}\n--------"
       msg.send message
-
-  robot.hear /# ([\d]+)$/i, (msg) ->
-    ticket_id = msg.match[1]
-    zendesk_request msg, "#{queries.tickets}/#{ticket_id}.json", (result) ->
-      if result.error
-        msg.send result.description
-        return
-      message = "https://support.puppetlabs.com/tickets/#{result.ticket.id}
