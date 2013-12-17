@@ -19,7 +19,7 @@ PIZZA = "pizzagifs.tumblr.com"
 
 module.exports = (robot) ->
   func = if process.env.HUBOT_MORE_PIZZA then 'hear' else 'respond'
-  robot[func](/pizz+a+/i, (msg) ->
+  robot[func](/pizzatime/i, (msg) ->
     tumblr.photos(PIZZA).random (post) ->
       msg.send post.photos[0].original_size.url
   )
