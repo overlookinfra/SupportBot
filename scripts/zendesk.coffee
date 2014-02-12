@@ -112,7 +112,7 @@ module.exports = (robot) ->
 
   robot.respond /distribution ([\w]+)$/i, (msg) ->
     ticket_assignee = msg.match[1]
-    zendesk_request msg, "#{queries.jaypending}", (result) ->
+    zendesk_request msg, queries.jaypending, (result) ->
       if result.error
 	msg.send result.description
 	return
