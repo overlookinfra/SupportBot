@@ -116,8 +116,8 @@ module.exports = (robot) ->
   robot.respond /distribution jay$/i, (msg) ->
     ticket_assignee = msg.match[1]
     zendesk_request msg, queries.jay_pending_tics, (pending)
-      pending_count = pending.count
     zendesk_request msg, queries.jay_open_tics, (open) ->
+      pending_count = pending.count
       open_count = open.count
       msg.send "Jay Wallace: Pending: #{pending_count} Open: #{open_count}"
 
