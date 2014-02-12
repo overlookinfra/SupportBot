@@ -31,6 +31,7 @@ queries =
   pending: "search.json?query=status:pending+type:ticket"
   tickets: "tickets"
   users: "users"
+  jaypending: "search.json?query=status:pending+type:ticket+assignee:Jay"
 
 
 zendesk_request = (msg, url, handler) ->
@@ -111,7 +112,7 @@ module.exports = (robot) ->
 
   robot.respond /distribution ([\w]+)$/i, (msg) ->
     ticket_assignee = msg.match[1]
-    zendesk_request msg, "search.json?query=status:pending+type:ticket+assignee:#{ticket_assignee}", (result) ->
+    zendesk_request msg, "#{queries.jaypending}", (result) ->
       if result.error
 	msg.send result.description
 	return
