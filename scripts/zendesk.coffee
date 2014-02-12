@@ -31,8 +31,11 @@ queries =
   pending: "search.json?query=status:pending+type:ticket"
   tickets: "tickets"
   users: "users"
-  jaypending: "search.json?query=status:pending+type:ticket+assignee:Jay"
-
+  jay_pending_tics: "search.json?query=status:pending+type:ticket+assignee:Jay"
+  jay_open_tics: "search.json?query=status:open+type:ticket+assignee:Jay"
+  jay_p1_tics: "search.json?query=status<solved+type:ticket+tags:priority_1+assignee:Jay"
+  jay_p2_tics: "search.json?query=status<solved+type:ticket+tags:priority_2+assignee:Jay"
+  jay_p3_tics: "search.json?query=status<solved+type:ticket+tags:priority_3+assignee:Jay"
 
 zendesk_request = (msg, url, handler) ->
   zendesk_user = "#{process.env.HUBOT_ZENDESK_USER}"
@@ -110,11 +113,13 @@ module.exports = (robot) ->
       for result in results.results
         msg.send "Ticket #{result.id} is #{result.status}: https://support.puppetlabs.com/tickets/#{result.id}"
 
-  robot.respond /distribution ([\w]+)$/i, (msg) ->
+  robot.respond /distribution jay$/i, (msg) ->
     ticket_assignee = msg.match[1]
-    zendesk_request msg, queries.jaypending, (result) ->
-      pending_count = result.count
-      msg.send "#{ticket_assignee} has #{pending_count} tickets pending"
+    zendesk_request msg, queries.jay_pending_tics, (pending) ->
+      pending_count = pending.count
+    zendesk_request msg, queries.jay_open_tics, (open) ->
+      open_count = open.count
+      msg.send "Jay Wallace: Pending: #{pending_count} Open: #{open_count}"
 
   robot.respond /ticket ([\d]+)$/i, (msg) ->
     ticket_id = msg.match[1]
