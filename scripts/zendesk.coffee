@@ -108,6 +108,14 @@ module.exports = (robot) ->
     zendesk_request msg, queries.open, (results) ->
       for result in results.results
         msg.send "Ticket #{result.id} is #{result.status}: https://support.puppetlabs.com/tickets/#{result.id}"
+  
+  robot.respond /distribution ([\w]+)$/i, (msg) -> 
+    ticket_assignee = msg.match[1]
+    zendesk_request msg, "search.json?query=status:pending+type:ticket+assignee:#{ticket_assignee}", (results) ->
+    	pending_count = results.count
+	msg.send "#{ticket_assignee} has #{pending_count} tickets pending"
+
+
 
   robot.respond /ticket ([\d]+)$/i, (msg) ->
     ticket_id = msg.match[1]
