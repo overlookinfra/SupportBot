@@ -115,8 +115,8 @@ module.exports = (robot) ->
       if result.error
 	msg.send result.description
 	return
-        pending_count = result.count
-        msg.send "#{ticket_assignee} has #{pending_count} tickets pending"
+      pending_count = result.count
+      msg.send "#{ticket_assignee} has #{pending_count} tickets pending"
 
   robot.respond /ticket ([\d]+)$/i, (msg) ->
     ticket_id = msg.match[1]
