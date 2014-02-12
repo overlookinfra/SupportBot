@@ -115,8 +115,6 @@ module.exports = (robot) ->
     	pending_count = results.count
 	msg.send "#{ticket_assignee} has #{pending_count} tickets pending"
 
-
-
   robot.respond /ticket ([\d]+)$/i, (msg) ->
     ticket_id = msg.match[1]
     zendesk_request msg, "#{queries.tickets}/#{ticket_id}.json", (result) ->
