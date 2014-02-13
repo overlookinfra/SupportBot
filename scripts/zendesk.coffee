@@ -118,8 +118,7 @@ module.exports = (robot) ->
       if pending.error
         msg.send pending.description
         return 
-      message = "https://puppetlabs.zendesk.com/system/photos/4442/7964/def.jpg"
-      message += "\nJay Wallace: "
+      message = "\nJay Wallace: "
       message += "\nPending: #{pending.count} Open: 0"
       message += "\nP1: 0 P2: 0 P3: 6"
       message += "\nWorkload: 20"
