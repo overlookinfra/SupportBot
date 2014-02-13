@@ -114,13 +114,16 @@ module.exports = (robot) ->
         msg.send "Ticket #{result.id} is #{result.status}: https://support.puppetlabs.com/tickets/#{result.id}"
 
   robot.respond /distribution jay$/i, (msg) ->
-    ticket_assignee = msg.match[1]
     zendesk_request msg, queries.jay_pending_tics, (pending) ->
-    zendesk_request msg, queries.jay_open_tics, (open) ->
+      pending_count = undefined
       pending_count = pending.count
+      return
+    zendesk_request msg, queries.jay_open_tics, (open) ->
+      open_count = undefined
       open_count = open.count
-      msg.send "Jay Wallace: Pending: #{pending_count} Open: #{open_count}"
-
+      return
+    msg.send "Jay Wallace: Pending: " + pending_count + " Open: " + open_count
+  
   robot.respond /ticket ([\d]+)$/i, (msg) ->
     ticket_id = msg.match[1]
     zendesk_request msg, "#{queries.tickets}/#{ticket_id}.json", (result) ->
