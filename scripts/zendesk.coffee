@@ -121,7 +121,8 @@ module.exports = (robot) ->
 	message += "\nPending: #{pending_count} Open: 0"
 	message += "\nP1: 0 P2: 0 P3: 6"
 	message += "\nWorkload: 20"
-  
+	msg.send message
+
   robot.respond /ticket ([\d]+)$/i, (msg) ->
     ticket_id = msg.match[1]
     zendesk_request msg, "#{queries.tickets}/#{ticket_id}.json", (result) ->
