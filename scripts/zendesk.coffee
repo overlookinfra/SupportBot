@@ -112,7 +112,16 @@ module.exports = (robot) ->
     zendesk_request msg, queries.open, (results) ->
       for result in results.results
         msg.send "Ticket #{result.id} is #{result.status}: https://support.puppetlabs.com/tickets/#{result.id}"
- 
+  
+  robot.respond /distribution Jay$/i, (msg) ->
+    zendesk_request msg, queries.jay_pending_tics, (pending) ->
+      	pending_count = pending.count
+        message = "https://puppetlabs.zendesk.com/system/photos/4442/7964/def.jpg"
+	message += "\nJay Wallace: "
+	message += "\nPending: #{pending_count} Open: 0"
+	message += "\nP1: 0 P2: 0 P3: 6"
+	message += "\nWorkload: 20"
+  
   robot.respond /ticket ([\d]+)$/i, (msg) ->
     ticket_id = msg.match[1]
     zendesk_request msg, "#{queries.tickets}/#{ticket_id}.json", (result) ->
