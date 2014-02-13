@@ -115,12 +115,15 @@ module.exports = (robot) ->
   
   robot.respond /distribution Jay$/i, (msg) ->
     zendesk_request msg, queries.jay_pending_tics, (pending) ->
-        message = "https://puppetlabs.zendesk.com/system/photos/4442/7964/def.jpg"
-	message += "\nJay Wallace: "
-	message += "\nPending: #{pending.pending_count} Open: 0"
-	message += "\nP1: 0 P2: 0 P3: 6"
-	message += "\nWorkload: 20"
-	msg.send message
+      if pending.error
+        msg.send pending.description
+        return 
+      message = "https://puppetlabs.zendesk.com/system/photos/4442/7964/def.jpg"
+      message += "\nJay Wallace: "
+      message += "\nPending: #{pending.pending_count} Open: 0"
+      message += "\nP1: 0 P2: 0 P3: 6"
+      message += "\nWorkload: 20"
+      msg.send message
 
   robot.respond /ticket ([\d]+)$/i, (msg) ->
     ticket_id = msg.match[1]
